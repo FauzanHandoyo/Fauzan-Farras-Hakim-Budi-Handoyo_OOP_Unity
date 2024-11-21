@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f424d7a0de9303745bb9f3c691c58b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootIntervalInSeconds: 3
+  shootIntervalInSeconds: 0.1
   bulletPrefab: {fileID: 7658557368702604713, guid: 90c4fbd7638dda0489665efefb8c1e1c, type: 3}
   bulletSpawnPoint: {fileID: 791153592947600589}
   parentTransform: {fileID: 0}

@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    [SerializeField] private Weapon weaponHolder;
+    [SerializeField] private Weapon weaponHolder; // Reference to the weapon associated with this pickup
     private Weapon weapon;
 
     void Awake()
     {
-        // Initialize weapon with the weaponHolder object
+        // Initialize the weapon from the holder
         weapon = weaponHolder;
     }
 
     void Start()
     {
-        // If weapon is not null, initialize related methods with false
+        // Disable weapon visuals initially
         if (weapon != null)
         {
             TurnVisual(false);
@@ -22,31 +22,40 @@ public class WeaponPickup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the colliding object is the Player
+        // Check if the colliding object is the player
         if (other.CompareTag("Player"))
         {
-            // Set the parent of the weapon to the Player
-            weapon.transform.SetParent(other.transform);
+            // Equip this weapon
+            EquipWeapon(other);
 
-            // Set the local position to place it correctly relative to the player
-            weapon.transform.localPosition = Vector3.zero; // or a specific offset like new Vector3(1, 0, 0)
-
-            // Enable the visual components of the weapon
-            TurnVisual(true, weapon);
+            // Hide all other weapons in the scene
+            WeaponManager.HideAllWeapons();
         }
     }
 
-
-    // Method overloading for TurnVisual
-    public void TurnVisual(bool on)
+    private void EquipWeapon(Collider2D player)
     {
-        // Enable or disable weapon components based on 'on' parameter
-        weapon.gameObject.SetActive(on);
+        // Attach the weapon to the player
+        weapon.transform.SetParent(player.transform);
+
+        // Position the weapon correctly relative to the player
+        weapon.transform.localPosition = Vector3.zero;
+
+        // Enable the weapon visuals
+        TurnVisual(true);
     }
 
-    public void TurnVisual(bool on, Weapon weapon)
+    public void DisableWeaponPickup()
     {
-        // Enable or disable weapon components based on 'on' parameter
-        weapon.gameObject.SetActive(on);
+        // Disable the weapon pickup GameObject
+        gameObject.SetActive(false);
+    }
+
+    public void TurnVisual(bool on)
+    {
+        if (weapon != null)
+        {
+            weapon.gameObject.SetActive(on);
+        }
     }
 }

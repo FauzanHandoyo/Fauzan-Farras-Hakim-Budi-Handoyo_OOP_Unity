@@ -33,14 +33,15 @@ public class EnemyTargeting : Enemy
 
     private void MoveTowardsPlayer()
     {
-        // Calculate the direction towards the player
+        // Calculate the direction to the player
         Vector2 direction = (playerTransform.position - transform.position).normalized;
 
-        // Move the enemy towards the player at the defined speed
+        // Move the enemy towards the player
         transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, speed * Time.deltaTime);
 
-        // Optionally rotate the enemy to face the player
+        // Rotate the enemy to face the player
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
+
 }
