@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  points: 3
   speed: 3
 --- !u!114 &5291942557470263903
 MonoBehaviour:

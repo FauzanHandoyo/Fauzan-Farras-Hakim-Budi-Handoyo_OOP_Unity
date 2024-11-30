@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  points: 9
   bossWeapon: {fileID: 7811433254387937573, guid: 7880c7bad04e3d24f90a0beeddd22de0, type: 3}
   shootInterval: 2
 --- !u!114 &-4324796651475800422
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f424d7a0de9303745bb9f3c691c58b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootIntervalInSeconds: 0.1
+  shootIntervalInSeconds: 10
   bulletPrefab: {fileID: 7658557368702604713, guid: 90c4fbd7638dda0489665efefb8c1e1c, type: 3}
   bulletSpawnPoint: {fileID: 791153592947600589}
   parentTransform: {fileID: 0}

@@ -86,10 +86,16 @@ public class EnemySpawner : MonoBehaviour
 
     // Method to be called by enemies when they are defeated
     public void OnEnemyKilled()
-    {
+    { 
         totalKill++; // Increment the total kills
         totalKillWave++; // Increment the kills for the current wave
+
+        if (combatManager != null)
+        {
+            combatManager.OnEnemyKilled(null); // Notify CombatManager about the kill
+        }
     }
+
 
     // Method to start or stop spawning
     public void SetSpawning(bool isActive)

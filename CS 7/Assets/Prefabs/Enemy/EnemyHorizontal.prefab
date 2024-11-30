@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  points: 3
 --- !u!114 &256130920147679242
 MonoBehaviour:
   m_ObjectHideFlags: 0

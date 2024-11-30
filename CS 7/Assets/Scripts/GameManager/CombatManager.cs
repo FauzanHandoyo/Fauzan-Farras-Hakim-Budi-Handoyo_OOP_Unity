@@ -14,31 +14,48 @@ public class CombatManager : MonoBehaviour
 
     private List<Enemy> activeEnemies = new List<Enemy>(); // List to track active enemies
 
+    private GameObject player;         // Reference to the player GameObject
+    private bool playerHasWeapon = false; // Flag to check if the player has a weapon
+
     private void Start()
     {
-        StartWave();
+        player = GameObject.FindWithTag("Player");
+        CheckPlayerWeapon();
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        // Check if the player has acquired a weapon
+        CheckPlayerWeapon();
 
-        if (timer >= waveInterval && totalEnemies <= 0)
+        // Only proceed with spawning logic if the player has a weapon
+        if (playerHasWeapon)
         {
-            StartWave();
-            timer = 0f;
+            timer += Time.deltaTime;
+
+            if (timer >= waveInterval && totalEnemies <= 0)
+            {
+                StartWave();
+                timer = 0f;
+            }
         }
     }
 
     private void StartWave()
     {
+        if (!playerHasWeapon)
+        {
+            Debug.Log("Player does not have a weapon. Cannot start the wave.");
+            return;
+        }
+
         Debug.Log($"Starting Wave {waveNumber}!");
 
         foreach (EnemySpawner spawner in enemySpawners)
         {
             if (spawner != null)
             {
-                spawner.SetSpawning(true);
+                spawner.SetSpawning(true); // Enable spawning for each spawner
                 totalEnemies += spawner.spawnCount;
             }
         }
@@ -60,5 +77,23 @@ public class CombatManager : MonoBehaviour
     public void RegisterEnemy(Enemy enemy)
     {
         activeEnemies.Add(enemy); // Add the spawned enemy to the active list
+    }
+
+    private void CheckPlayerWeapon()
+    {
+        if (player != null)
+        {
+            Weapon weapon = player.GetComponentInChildren<Weapon>();
+            playerHasWeapon = weapon != null;
+
+            // Enable/Disable enemy spawners based on weapon status
+            foreach (EnemySpawner spawner in enemySpawners)
+            {
+                if (spawner != null)
+                {
+                    spawner.SetSpawning(playerHasWeapon);
+                }
+            }
+        }
     }
 }
